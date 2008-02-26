@@ -2,19 +2,23 @@
 
 This is a test application (and new application scaffold) for the Authorization
 plugin with Object Roles table support. The Authorization plugin is described
-in vendors/plugins/Authorization/README (or check nicely formatted HTML docs in
+in vendors/plugins/authorization/README (or check nicely formatted HTML docs in
 that plugin directory /doc).
 
-How to start:
+Prerequisites:
+- Ruby on Rails v 2.0.2 or higher
+- The Ruby Sqlite3 gem is installed and functional.  You can use MySQL for the tests but will need to manually create the databases needed and add them to 'config/database.yml' yourself.
 
-1. Create a database
-2. Make sure /config/database.yml has the correct settings to connect to your DB.
-3. Run the migration using "rake migrate"
-4. Start webrick with "script/server"
-5. Surf to http://localhost:3000
+Running the Tests:
+- Make sure /config/database.yml has the correct settings for your DB (Default Sqlite3).
+- Run the migration using "rake db:migrate" or reset the DB with "rake db:migrate:reset"
+- Run 'rake test' from the root of the test application.
+
+Optional manual tests:
+- Start an instance of the mongrel webserver by running './script/server'
+- Surf to http://localhost:3000 and try out the sample application.
 
 Things to look at:
-
 * The integration tests in /test/integration. Enter "rake test:integration" to run them.
 * The migration scripts in /db/migrate.
 * Notice how you can mix hardwired roles in your code with database roles.
