@@ -1,0 +1,68 @@
+
+<table id="main_table">
+<tr><td colspan="2">
+	<h1>Authorization Test App</h1>
+	<p>You are currently using the <%= "#{AUTHORIZATION_MIXIN}" %> mixin.</p>
+</td></tr>
+<tr><td id="left_col">
+	<div id="accounts">
+		<p>
+			Roles hardwired into user and model code:
+			<ul>
+				<li><%= link_to 'Alexander the Great', :action => 'switch_user', :username => 'Alexander the Great' %> 
+					is a 'conquerer' of the group 'known world'.</li>
+				<li>The user <%= link_to 'nobody', :action => 'switch_user', :username => 'nobody' %> has the role 'nobody'.</li>
+				<li><%= link_to 'Bill', :action => 'switch_user', :username => 'Bill' %> 
+					(not <%= link_to 'Bill Gates', :action => 'switch_user', :username => 'Bill Gates' %>) 
+					is a 'site_admin' and gets access to all groups.</li>
+			</ul>
+		</p>
+		<p>
+		    Current user name: <strong><%= current_user ? current_user.username : 'no user logged in' %></strong>
+		</p>
+		<% if current_user -%>
+		<hr>
+		<p>
+			Current Roles for <%= current_user.username %>:
+			<ul>
+			<% current_user.roles.each do |role| -%>
+				<li><%= role.name %>
+					<% if role.authorizable_id %>
+						<%= "of #{role.authorizable.class.to_s} '#{role.authorizable.name}'" %>
+					<% else %>
+						(applies to all models)
+					<% end %>
+					&nbsp;&nbsp;<%= link_to 'delete', { :action => 'delete_role', :id => role }, :post => true %></li>
+			<% end -%>
+			</ul>
+			<%= start_form_tag :action => 'add_role' %>
+				Add role to this user:
+				<%= text_field_tag :role %>
+				<%= submit_tag 'Add role' %>
+			<%= end_form_tag %>
+		</p>
+		<hr>
+		<p>
+			<%= start_form_tag :action => 'add_user' %>
+				Add new user with name:
+				<%= text_field_tag :username %>
+				<%= submit_tag 'Add user' %>
+			<%= end_form_tag %>
+		</p>
+		<% end -%>
+		<p>
+		  <%= link_to 'Login as new user', :action => 'direct_login' %><br />
+		  <%= link_to 'Randomly pick user', :action => 'random_user' %><br />
+		  <%= link_to 'Delete the user session', :action => 'delete_session' %>
+		</p>
+	</div>
+
+	<%= render :partial => 'object_roles/tests' %>
+</td>
+<td id="right_col">
+	<div id="code_image">
+		<%= image_tag 'object_roles_controller.gif' %>
+	</div>
+</td>
+</tr></table>
+

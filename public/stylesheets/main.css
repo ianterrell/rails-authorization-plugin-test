@@ -1,0 +1,11 @@
+
+#main_table {
+	width: 100%;
+}
+#left_col {
+	vertical-align: top;
+}
+#right_col {
+	width: 550px;
+	vertical-align: top;
+}

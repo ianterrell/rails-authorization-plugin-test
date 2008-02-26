@@ -1,0 +1,44 @@
+<div id="tests">
+	<h3>Tests</h3>
+	<ul>
+	<li>
+	    <%= link_to 'Public page', :controller => 'object_roles', :action => 'public_page' %>
+	</li>
+	<li>
+	    <%= link_to "'nobody' can see this page (class-level permit with hardwired role in User)", 
+	        :controller => 'object_roles', :action => 'nobody_page' %>
+	</li>
+	<li>
+	    <%= link_to "Bill's private page (method-level permit with hardwired role in User)", :controller => 'object_roles', :action => 'bill_page' %>
+	</li>
+	<li>
+	    <%= link_to "Only a 'conquerer' of Group 'known world' can access this page (uses hardwired Group role)", 
+					:controller => 'object_roles', :action => 'conquerer_page' %>
+	</li>
+	<li>
+	    <%= link_to "Only for 'moderator' of any meeting (uses role database)", 
+	        :controller => 'object_roles', :action => 'moderate_meeting' 
+	     %>
+	</li>
+	<li>
+	    <%= link_to "Set role for bob to generic moderator through has_role", 
+	        :controller => 'object_roles', :action => 'make_bob_moderator' 
+	     %>
+	</li>
+	<li>
+	    <%= link_to "Only for 'moderator' of a 'Ruby' meeting (uses role database)", 
+	        :controller => 'object_roles', :action => 'moderate_ruby_meeting' 
+	     %>
+	</li>
+	<li>
+	    <%= link_to "Set role for DHH to moderator of 'Ruby' meeting through has_role", 
+	        :controller => 'object_roles', :action => 'make_dhh_moderator_of_Ruby_meeting' 
+	     %>
+	</li>
+	<li>
+	    <%= link_to "Only for 'member of Group' or site_admin (combo hardwired and role database)",
+	        :controller => 'object_roles', :action => 'group_members' 
+	     %>
+	</li>
+	</ul>
+</div>

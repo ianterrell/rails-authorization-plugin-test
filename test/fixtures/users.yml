@@ -1,0 +1,50 @@
+--- 
+alexander: 
+  updated_at: 2006-06-20 19:33:13
+  password_salt: kJeakIBP
+  username: Alexander the Great
+  id: "4"
+  password_hash: ce4eb80c1f4823117d3e20713d8b67c74dc248b63941f94ead581a74da4c0246
+  created_at: 2006-06-20 16:31:38
+nobody: 
+  updated_at: 2006-06-20 18:28:58
+  password_salt: U4Yw1uXt
+  username: nobody
+  id: "5"
+  password_hash: 468e07f545d9f71be8411fce8d125ac712c9713c172cf78d88d5ed88800e0663
+  created_at: 2006-06-20 16:31:40
+bill_gates: 
+  updated_at: 2006-06-20 19:33:15
+  password_salt: iBeeSfYu
+  username: Bill Gates
+  id: "6"
+  password_hash: 20561e52d224df6308237506b404f9132a651197325c99c44dbf0d22d681cf20
+  created_at: 2006-06-20 16:31:43
+angelina: 
+  updated_at: 2006-06-20 18:29:00
+  password_salt: nn+pmAwE
+  username: Angelina Jolie
+  id: "7"
+  password_hash: 66580da03df5c43cd688cd2a05d855bb7c679ba88b9363831038bdc493095e4e
+  created_at: 2006-06-20 16:31:47
+bill: 
+  updated_at: 2006-06-20 19:22:35
+  password_salt: y5tryO6T
+  username: Bill
+  id: "1"
+  password_hash: 58735259dbf1fb8ae77b5582b0d4f512f10098414269d8754cd614aa3866da14
+  created_at: 2006-06-20 16:31:33
+david: 
+  updated_at: 2006-06-20 19:22:36
+  password_salt: bXSD60Xh
+  username: David Heinemeier Hansson
+  id: "2"
+  password_hash: 393c309b118fe3b4b5859a7a1739953fdb356fd387a465cc2b577c2ce56fc83e
+  created_at: 2006-06-20 16:31:36
+bob: 
+  updated_at: 2006-06-20 19:22:45
+  password_salt: 20EZQn3p
+  username: Bob
+  id: "3"
+  password_hash: c32fad417680720c9f28e084f0db53d4781605888494596f5d9a56663c4813e7
+  created_at: 2006-06-20 16:31:38

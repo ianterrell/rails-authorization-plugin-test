@@ -1,0 +1,13 @@
+<% if flash[:notice] -%>
+<div id="notice"><%= flash[:notice] %></div>
+<% end -%>
+<%= start_form_tag :action => "login" %>
+  <p>Please sign in: (password is same as username in this test app)</p>
+  <label for="username">Username:</label>
+	<%= text_field_tag "username" %><br />
+	<label for="password">Password:</label>
+	<%= password_field_tag "password" %><br />
+	<%= submit_tag "Sign in" %>
+<%= end_form_tag %>
+<br />
+<p><%= link_to 'Return to test page', :controller => 'account', :action => 'index' %></p>

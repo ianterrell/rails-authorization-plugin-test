@@ -1,0 +1,23 @@
+== Authorization Test Application
+
+This is a test application (and new application scaffold) for the Authorization
+plugin with Object Roles table support. The Authorization plugin is described
+in vendors/plugins/Authorization/README (or check nicely formatted HTML docs in
+that plugin directory /doc).
+
+How to start:
+
+1. Create a database
+2. Make sure /config/database.yml has the correct settings to connect to your DB.
+3. Run the migration using "rake migrate"
+4. Start webrick with "script/server"
+5. Surf to http://localhost:3000
+
+Things to look at:
+
+* The integration tests in /test/integration. Enter "rake test:integration" to run them.
+* The migration scripts in /db/migrate.
+* Notice how you can mix hardwired roles in your code with database roles.
+
+http://www.writertopia.com/developers
+
