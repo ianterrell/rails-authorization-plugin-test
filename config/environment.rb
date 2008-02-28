@@ -12,8 +12,9 @@ RAILS_GEM_VERSION = '2.0.2' unless defined? RAILS_GEM_VERSION
 # NOTE : Be sure to redirect to '/sessions' controller (with a leading slash)
 # or you will not get redirected properly from module controllers like admin/users
 AUTHORIZATION_MIXIN = "object roles"
-#DEFAULT_REDIRECTION_HASH = { :controller => '/sessions', :action => 'new' }
-#STORE_LOCATION_METHOD = :store_return_location
+LOGIN_REQUIRED_REDIRECTION = { :controller => 'account', :action => 'login' }
+PERMISSION_DENIED_REDIRECTION = { :controller => 'account', :action => 'login' }
+STORE_LOCATION_METHOD = :store_location
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
