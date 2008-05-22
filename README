@@ -10,6 +10,9 @@ Prerequisites:
 - The Ruby Sqlite3 gem is installed and functional.  You can use MySQL for the tests but will need to manually create the databases needed and add them to 'config/database.yml' yourself.
 
 Running the Tests:
+- Make sure you have the correct authorization plugin:
+  - git submodule init
+  - git submodule update
 - Make sure /config/database.yml has the correct settings for your DB (Default Sqlite3).
 - Run the migration using "rake db:migrate" or reset the DB with "rake db:migrate:reset"
 - Run 'rake test' from the root of the test application.
