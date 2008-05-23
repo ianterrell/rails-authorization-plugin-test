@@ -147,4 +147,83 @@ class UserTest < Test::Unit::TestCase
     assert steve.is_no_fan_of?( angelina )
     assert_equal 1, angelina.has_fans.length
   end
+
+  def test_roles_for
+    steve = User.create( :username => 'Steve' )
+    rubyists = Group.create( :name => 'Rubyists' )
+    ozzies = Group.create( :name => 'Ozzies' )
+    assert !steve.has_role_for?(nil)
+    assert !steve.has_roles_for?(Group)
+    assert !steve.has_roles_for?(rubyists)
+    assert !rubyists.accepts_roles_by?(steve)
+    assert !ozzies.accepts_roles_by?(steve)
+    assert !Group.accepts_roles_by?(steve)
+    assert_equal 0, steve.roles_for(nil).size
+    assert_equal 0, steve.roles_for(Group).size
+    assert_equal 0, steve.roles_for(rubyists).size
+    assert_equal 0, rubyists.accepted_roles_by(steve).size
+    assert_equal 0, Group.accepted_roles_by(steve).size
+    assert_equal 0, steve.authorizables_for(Group).size
+    assert_equal 0, Group.authorizables_by(steve).size
+
+    steve.is_moderator
+    assert steve.has_role_for?(nil)
+
+    steve.is_loving rubyists
+    steve.is_owner_of rubyists
+    steve.is_loving ozzies
+    assert steve.has_roles_for?(Group)
+    assert steve.has_roles_for?(rubyists)
+    assert steve.has_roles_for?(ozzies)
+    assert rubyists.accepts_roles_by?(steve)
+    assert ozzies.accepts_roles_by?(steve)
+    assert Group.accepts_roles_by?(steve)
+
+    roles = steve.roles_for(nil)
+    assert_equal 1, roles.size
+    assert_equal "moderator", roles[0].name
+
+    roles = steve.roles_for(Group)
+    assert_equal 3, roles.size
+    assert roles.include?(
+      Role.find( :first, :conditions => ['name = ? and authorizable_type = ? and authorizable_id = ?', 'loving', 'Group', rubyists.id]))
+    assert roles.include?(
+      Role.find( :first, :conditions => ['name = ? and authorizable_type = ? and authorizable_id = ?', 'owner', 'Group', rubyists.id]))
+    assert roles.include?(
+      Role.find( :first, :conditions => ['name = ? and authorizable_type = ? and authorizable_id = ?', 'loving', 'Group', ozzies.id]))
+        
+    roles = steve.roles_for(rubyists)
+    assert_equal 2, roles.size
+    assert roles.include?(
+      Role.find( :first, :conditions => ['name = ? and authorizable_type = ? and authorizable_id = ?', 'loving', 'Group', rubyists.id]))
+    assert roles.include?(
+      Role.find( :first, :conditions => ['name = ? and authorizable_type = ? and authorizable_id = ?', 'owner', 'Group', rubyists.id]))
+
+    roles = rubyists.accepted_roles_by(steve)
+    assert_equal 2, roles.size
+    assert roles.include?(
+      Role.find( :first, :conditions => ['name = ? and authorizable_type = ? and authorizable_id = ?', 'loving', 'Group', rubyists.id]))
+    assert roles.include?(
+      Role.find( :first, :conditions => ['name = ? and authorizable_type = ? and authorizable_id = ?', 'owner', 'Group', rubyists.id]))
+
+    roles = Group.accepted_roles_by(steve)
+    assert_equal 3, roles.size
+    assert roles.include?(
+      Role.find( :first, :conditions => ['name = ? and authorizable_type = ? and authorizable_id = ?', 'loving', 'Group', rubyists.id]))
+    assert roles.include?(
+      Role.find( :first, :conditions => ['name = ? and authorizable_type = ? and authorizable_id = ?', 'owner', 'Group', rubyists.id]))
+    assert roles.include?(
+      Role.find( :first, :conditions => ['name = ? and authorizable_type = ? and authorizable_id = ?', 'loving', 'Group', ozzies.id]))
+
+    groups = steve.authorizables_for(Group)
+    assert_equal 2, groups.size
+    groups.include? rubyists
+    groups.include? ozzies
+
+    group = Group.authorizables_by(steve)
+    assert_equal 2, groups.size
+    groups.include? rubyists
+    groups.include? ozzies
+  end
+
 end
