@@ -105,6 +105,12 @@ class UserTest < Test::Unit::TestCase
       Role.find( :first, :conditions => ['name = ? and authorizable_type = ? and authorizable_id = ?', 'loving', 'Group', rubyists.id])
     steve.is_not_loving rubyists
     assert !steve.is_loving?
+    
+    mary = User.create( :username => 'Mary' )
+    mary.is_owner_of rails_conf
+    assert_equal 2, rails_conf.users.size
+    assert rails_conf.users.include?(bill)
+    assert rails_conf.users.include?(mary)
   end
   
   def test_user_as_authorizable
