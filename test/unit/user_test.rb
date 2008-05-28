@@ -232,4 +232,19 @@ class UserTest < Test::Unit::TestCase
     groups.include? ozzies
   end
 
+  # When you destroy an authorizable it should also remove any roles that refer to it
+  def test_destroy
+    steve = User.create( :username => 'Steve' )
+    rubyists = Group.create( :name => 'Rubyists' )
+    steve.is_loving rubyists
+    role = Role.find( :first, :conditions => ['name = ? and authorizable_type = ? and authorizable_id = ?', 'loving', 'Group', rubyists.id])
+    assert !role.nil?
+    assert_equal 1, ActiveRecord::Base.connection.select_value("SELECT COUNT(*) FROM roles_users WHERE user_id = #{steve.id} AND role_id = #{role.id}").to_i
+
+    rubyists.destroy
+    assert Role.find( :first, :conditions => ['name = ? and authorizable_type = ? and authorizable_id = ?', 'loving', 'Group', rubyists.id]).nil?
+    assert_equal 0, ActiveRecord::Base.connection.select_value("SELECT COUNT(*) FROM roles_users WHERE user_id = #{steve.id} AND role_id = #{role.id}").to_i
+    assert_equal steve, User.find(steve.id)
+  end
+
 end
