@@ -10,9 +10,19 @@ Prerequisites:
 - The Ruby Sqlite3 gem is installed and functional.  You can use MySQL for the tests but will need to manually create the databases needed and add them to 'config/database.yml' yourself.
 
 Running the Tests:
-- Make sure you have the correct authorization plugin:
-  - git submodule init
-  - git submodule update
+- Make sure you have the correct authorization plugin which gets included as a git sub-module:
+  - first time:
+    - git submodule init
+    - git submodule update
+  - to pick up later updates to the plugin sub-module do something like:
+    - cd vendor/plugins/authorization
+    - git checkout master
+    - git remote update
+    - cd ../../../
+    - rake test
+
+(Note: Learn more about using submodules here : http://woss.name/2008/04/09/using-git-submodules-to-track-vendorrails/ )
+
 - Make sure /config/database.yml has the correct settings for your DB (Default Sqlite3).
 - Run the migration using "rake db:migrate" or reset the DB with "rake db:migrate:reset"
 - Run 'rake test' from the root of the test application.
