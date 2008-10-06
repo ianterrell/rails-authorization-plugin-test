@@ -265,4 +265,11 @@ class UserTest < Test::Unit::TestCase
     assert_equal 0, ActiveRecord::Base.connection.select_value("SELECT COUNT(*) FROM roles_users WHERE user_id = #{steve.id} AND role_id = #{role.id}").to_i
   end
 
+  def test_roles_on_unsaved_user
+    u = User.new :username=>"bill"
+    assert_equal false, u.is_zorro?
+    u.is_zorro
+    assert_equal true, u.is_zorro?
+  end
+
 end
