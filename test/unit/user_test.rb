@@ -49,6 +49,18 @@ class UserTest < Test::Unit::TestCase
     angelina.has_no_role 'attendee', ruby_mtg
     assert !ruby_mtg.accepts_role?( 'attendee', angelina )
     assert ruby_mtg.accepts_role?( 'attendee', bill )
+
+    # We test this because of a possible bug in Ruby (and because above only covers single role handling)
+    # Try this in the console and see what I mean:
+    # array = ['a','b','c']; array.each { |ar| array.delete(ar) }; puts array.inspecr
+    # We expect array to be empty after running that, but on some systems we get back ['b']
+    rails_mtg = Meeting.create(:name => 'Rails')
+    david = users(:david)
+    role_names = ['keynoter', 'speaker', 'presenter', 'q_and_a']
+    role_names.each { |role_name| david.has_role(role_name, rails_mtg) }
+    assert_equal 4, david.roles.size
+    role_names.each { |role_name| david.has_no_role(role_name, rails_mtg) }
+    assert_equal 0, david.roles.size
   end
   
   def test_identity_sugar
