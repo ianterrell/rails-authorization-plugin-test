@@ -283,5 +283,14 @@ class UserTest < Test::Unit::TestCase
     u.is_zorro
     assert_equal true, u.is_zorro?
   end
-
+  
+  def test_has_no_roles
+    bill = users(:bill)
+    angelina = users(:angelina)
+    bill.has_role('zorro')
+    angelina.has_role('zorro')
+    bill.has_no_roles
+    # Check that removing all roles for bill doesn't affect angelina
+    assert angelina.has_role?('zorro')
+  end
 end
