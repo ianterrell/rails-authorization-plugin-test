@@ -293,4 +293,24 @@ class UserTest < Test::Unit::TestCase
     # Check that removing all roles for bill doesn't affect angelina
     assert angelina.has_role?('zorro')
   end
+  
+  def test_has_no_roles_for
+    bill = users(:bill)
+    angelina = users(:angelina)
+    alexander = users(:alexander)
+    bill.has_role("fan", angelina)
+    bill.has_role("admirer", angelina)
+
+    bill.has_role("fan", alexander)
+    bill.has_role("follower", alexander)
+
+    bill.has_no_roles_for(alexander)
+    assert bill.has_role?("fan", angelina)
+    assert bill.has_role?("admirer", angelina)
+    assert !bill.has_roles_for?(alexander)
+    assert !bill.has_role?("fan", alexander)
+    assert !bill.has_role?("follower", alexander)
+    assert bill.roles.count == 2
+  end
+  
 end
